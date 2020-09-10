@@ -9,7 +9,10 @@ spec:
   params:
     - name: pathToContext
       description: The path to the build context, used by Kaniko - within the workspace
-      default: src
+      default: .
+    - name: pathToDockerFile
+      description: The path to the dockerfile to build (relative to the context)
+      default: Dockerfile
     - name: imageUrl
       description: Url of image repository
     - name: imageTag
@@ -17,15 +20,24 @@ spec:
   tasks:
   - name: dockerfile-build
     taskRef:
+      name: buildah
+    params:
+      - name: IMAGE
+        value: "$(params.imageUrl):$(params.imageTag)"
+      - name: 
+  - name: dockerfile-build
+    taskRef:
       name: dockerfile-build
     params:
       - name: pathToContext
         value: "$(params.pathToContext)"
+      - name: pathToDockerFile
+        value: "$(params.pathToDockerFile)"
       - name: imageUrl
         value: "$(params.imageUrl)"
       - name: imageTag
         value: "$(params.imageTag)"
     resources:
       inputs:
-        - name: git-source
+        - name: source
           resource: git-source
