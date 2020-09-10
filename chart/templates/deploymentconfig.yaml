@@ -60,3 +60,11 @@ spec:
   test: false
   triggers:
   - type: ConfigChange
+  - type: ImageChange
+    imageChangeParams:
+      automatic: true
+      from:
+        kind: ImageStreamTag
+        name: {{ .Values.app_name }}:latest
+      containerNames:
+      - {{ .Values.app_name }}
