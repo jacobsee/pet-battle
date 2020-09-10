@@ -8,6 +8,6 @@ LABEL labs.build.url="${build_url}" \
       labs.git.tag="${git_commit}" \
       labs.git.url="${git_url}"
 
-COPY nginx.conf /etc/opt/rh/rh-nginx112/nginx/nginx.conf
-COPY dist $HOME
+# COPY nginx.conf /etc/opt/rh/rh-nginx112/nginx/nginx.conf
+# COPY dist $HOME
 CMD ["nginx", "-g", "daemon off;"]

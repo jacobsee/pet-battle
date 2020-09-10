@@ -24,20 +24,7 @@ spec:
     params:
       - name: IMAGE
         value: "$(params.imageUrl):$(params.imageTag)"
-      - name: 
-  - name: dockerfile-build
-    taskRef:
-      name: dockerfile-build
-    params:
-      - name: pathToContext
-        value: "$(params.pathToContext)"
-      - name: pathToDockerFile
-        value: "$(params.pathToDockerFile)"
-      - name: imageUrl
-        value: "$(params.imageUrl)"
-      - name: imageTag
-        value: "$(params.imageTag)"
     resources:
       inputs:
-        - name: source
+        - name: git-source
           resource: git-source
