@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: pet-battle-repo
+spec:
+  params:
+  - name: url
+    value: https://github.com/jacobsee/pet-battle
+  - name: revision
+    value: tekton
+  type: git

@@ -1,0 +1,33 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: build-and-deploy-pipeline
+spec:
+  resources:
+  - name: pet-battle
+    type: git
+  - name: image
+    type: image
+  tasks:
+  - name: buildah
+    params:
+    - name: BUILDER_IMAGE
+      value: registry.redhat.io/rhel8/buildah
+    - name: DOCKERFILE
+      value: ./Dockerfile
+    - name: CONTEXT
+      value: .
+    - name: TLSVERIFY
+      value: "false"
+    - name: FORMAT
+      value: oci
+    resources:
+      inputs:
+      - name: source
+        resource: pet-battle
+      outputs:
+      - name: image
+        resource: image
+    taskRef:
+      kind: ClusterTask
+      name: buildah
