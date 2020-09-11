@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineRun
 metadata:
   name: build-pipeline
@@ -8,11 +8,20 @@ metadata:
 spec:
   pipelineRef:
     name: build-and-deploy-pipeline
-  resources:
-    - name: git-source
-      resourceRef:
-        name: pet-battle
+  workspaces:
+  - name: source
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 500Mi
   params:
+    - name: repoUrl
+      value: https://github.com/jacobsee/pet-battle
+    - name: repoRef
+      value: tekton
     - name: imageUrl
       value: image-registry.openshift-image-registry.svc:5000/jasee-test/pet-battle
     - name: imageTag
