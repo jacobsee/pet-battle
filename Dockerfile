@@ -1,7 +1,7 @@
 FROM node:10.15.2-alpine AS appbuild
 WORKDIR /usr/src/app
 COPY ./ ./
-RUN npm install
+RUN npm ci
 RUN npm run build
 
 FROM registry.access.redhat.com/rhscl/nginx-112-rhel7
