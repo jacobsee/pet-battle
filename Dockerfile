@@ -1,4 +1,4 @@
-FROM node:10.15.2-alpine AS appbuild
+FROM node:14.10 AS appbuild
 WORKDIR /usr/src/app
 COPY ./ ./
 RUN npm ci
