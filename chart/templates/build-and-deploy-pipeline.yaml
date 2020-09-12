@@ -4,7 +4,7 @@ metadata:
   name: build-and-deploy-pipeline
 spec:
   resources:
-  - name: pet-battle
+  - name: source
     type: git
   - name: image
     type: image
@@ -24,7 +24,7 @@ spec:
     resources:
       inputs:
       - name: source
-        resource: pet-battle
+        resource: source
       outputs:
       - name: image
         resource: image

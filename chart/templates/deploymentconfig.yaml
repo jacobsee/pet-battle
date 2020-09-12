@@ -2,13 +2,13 @@ apiVersion: apps.openshift.io/v1
 kind: DeploymentConfig
 metadata:
   labels:
-    {{- include "pet-battle.labels" . | nindent 4 }}
-  name: {{ include "pet-battle.fullname" . }}
+    {{- include "myapp.labels" . | nindent 4 }}
+  name: {{ include "myapp.fullname" . }}
 spec:
   replicas: {{ .Values.replicas }}
   revisionHistoryLimit: 10
   selector:
-    {{- include "pet-battle.selectorLabels" . | nindent 4 }}
+    {{- include "myapp.selectorLabels" . | nindent 4 }}
   strategy:
     activeDeadlineSeconds: 21600
     resources: {}
@@ -23,12 +23,12 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "pet-battle.selectorLabels" . | nindent 8 }}
+        {{- include "myapp.selectorLabels" . | nindent 8 }}
     spec:
       containers:
       - image: "{{ .Values.image_repository }}/{{ .Values.image_namespace }}/{{ .Values.image_name }}:{{ .Values.app_tag }}"
         imagePullPolicy: Always
-        name: {{ include "pet-battle.name" . }}
+        name: {{ include "myapp.name" . }}
         ports:
         - containerPort: 8080
           protocol: TCP
@@ -37,7 +37,7 @@ spec:
         terminationMessagePolicy: File
         volumeMounts:
           - mountPath: "/opt/app-root/src/env"
-            name: "{{ include "pet-battle.fullname" . }}-config"
+            name: "{{ include "myapp.fullname" . }}-config"
         readinessProbe:
           httpGet:
             path: /
@@ -50,9 +50,9 @@ spec:
       securityContext: {}
       terminationGracePeriodSeconds: 30
       volumes:
-      - name: "{{ include "pet-battle.fullname" . }}-config"
+      - name: "{{ include "myapp.fullname" . }}-config"
         configMap:
-          name: "{{ include "pet-battle.fullname" . }}-environment"
+          name: "{{ include "myapp.fullname" . }}-environment"
           defaultMode: 420
           items:
             - key: env

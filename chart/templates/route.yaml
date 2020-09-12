@@ -3,15 +3,15 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ include "pet-battle.fullname" . }}
+  name: {{ include "myapp.fullname" . }}
   labels:
-    {{- include "pet-battle.labels" . | nindent 4 }}
+    {{- include "myapp.labels" . | nindent 4 }}
 spec:
   port:
     targetPort: 8080-tcp
   to:
     kind: Service
-    name: {{ include "pet-battle.fullname" . }}
+    name: {{ include "myapp.fullname" . }}
     weight: 100
   wildcardPolicy: None
 status:

@@ -11,11 +11,11 @@ spec:
   pipelineRef:
     name: build-and-deploy-pipeline
   resources:
-  - name: pet-battle
+  - name: source
     resourceRef:
-      name: pet-battle-repo
+      name: myapp-repo
   - name: image
     resourceRef:
-      name: pet-battle-image
+      name: myapp-image
   serviceAccountName: pipeline
   timeout: 1h0m0s
